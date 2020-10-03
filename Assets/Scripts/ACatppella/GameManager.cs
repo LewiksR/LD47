@@ -13,33 +13,64 @@ namespace ACatppella
         [SerializeField]
         private GameObject notesContainer;
         [SerializeField]
+        private GameObject trackBackground;
+        [SerializeField]
         private GameObject notePrefab;
 
-        private RectTransform notesTrack;
+        private RectTransform rectNotesTrack;
+        private RectTransform rectTrackBackground;
 
-        private float tempo = 120f;
-        private float speed = 1f;
+        private float beatIntervalSeconds;
 
         private float measureHeight;
 
+        private Song currentSong;
+        private Track currentTrack;
         private Instrument currentInstrument;
 
         void Start()
         {
-            notesTrack = notesTrackContainer.GetComponent<RectTransform>();
+            // SETUP VARIABLES
+            rectNotesTrack = notesTrackContainer.GetComponent<RectTransform>();
+            measureHeight = rectNotesTrack.sizeDelta.y;
 
-            measureHeight = notesTrack.sizeDelta.y;
+            rectTrackBackground = trackBackground.GetComponent<RectTransform>();
+            // END SETUP VARIABLES
 
-            Track track = RepositoryManager.Instance.Tracks.FirstOrDefault();
-
-            RenderTrack(track);
+            StartSong(RepositoryManager.Instance.Songs.FirstOrDefault());
         }
 
         void Update()
         {
-            MoveTrack();
-
             PlayNotes();
+        }
+
+        private void StartSong(Song song)
+        {
+            beatIntervalSeconds = 60f / song.Bpm;
+
+            StartTrack(song.Tracks.FirstOrDefault());
+        }
+
+        private void StartTrack(Track track)
+        {
+            currentInstrument = track.Instrument;
+
+            RenderTrack(track);
+        }
+
+        private void FixedUpdate()
+        {
+            MoveTrack();
+        }
+
+        private void MoveTrack()
+        {
+            rectNotesTrack.Translate(Vector2.down * Time.deltaTime * measureHeight / 4 / beatIntervalSeconds);
+
+            float backgroundVerticalOffset = -Mathf.Floor(rectNotesTrack.anchoredPosition.y / measureHeight) - 1;
+
+            rectTrackBackground.anchoredPosition = new Vector2(0, measureHeight * backgroundVerticalOffset);
         }
 
         private void PlayNotes()
@@ -75,14 +106,9 @@ namespace ACatppella
             }
         }
 
-        private void MoveTrack()
-        {
-
-        }
-
         private void RenderTrack(Track track)
         {
-            float horizontalOffset = notesTrack.sizeDelta.x / (track.Instrument.AudioNotes.Count + 1);
+            float horizontalOffset = rectNotesTrack.sizeDelta.x / (track.Instrument.AudioNotes.Count + 1);
 
             // Notes interval
             float verticalOffset = measureHeight / 8f;

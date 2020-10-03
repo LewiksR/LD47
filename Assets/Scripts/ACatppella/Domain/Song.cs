@@ -6,19 +6,17 @@ namespace ACatppella.Domain
 {
     public class Song
     {
-        public Song(string name, List<Track> tracks)
+        public Song(string name, float bpm, List<Track> tracks)
         {
             Name = name;
+            Bpm = bpm;
             Tracks = tracks;
         }
 
         public string Name { get; }
 
-        public List<Track> Tracks { get; } = new List<Track>();
+        public float Bpm { get; }
 
-        public int[] songA = new int[]
-        {
-            1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0
-        };
+        public List<Track> Tracks { get; }
     }
 }

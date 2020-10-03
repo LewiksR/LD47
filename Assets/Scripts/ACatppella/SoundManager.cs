@@ -37,34 +37,5 @@ namespace ACatppella
         {
             audioSource.PlayOneShot(audioClip);
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-            //if (Input.GetKeyDown(KeyCode.A))
-            //{
-            //    audioSource.PlayOneShot(notes[0]);
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.S))
-            //{
-            //    audioSource.PlayOneShot(notes[1]);
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.D))
-            //{
-            //    audioSource.PlayOneShot(notes[2]);
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.F))
-            //{
-            //    audioSource.PlayOneShot(notes[3]);
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.G))
-            //{
-            //    audioSource.PlayOneShot(notes[4]);
-            //}
-        }
     }
 }
