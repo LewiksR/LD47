@@ -16,7 +16,7 @@ namespace ACatppella.Domain
 
         public List<Track> Tracks { get; } = new List<Track>();
 
-        public static int[] songA = new int[]
+        public int[] songA = new int[]
         {
             1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0
         };

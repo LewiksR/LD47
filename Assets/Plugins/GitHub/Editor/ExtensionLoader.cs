@@ -23,17 +23,17 @@ namespace GitHub.Unity
             }
         }
 
-        private static bool inSourceMode = false;
+        private bool inSourceMode = false;
         private const string sourceModePath = "Assets/Editor/build/";
         private const string realPath = "Assets/Plugins/GitHub/Editor/";
 
-        private static string[] assemblies20 = { "System.Threading.dll", "AsyncBridge.Net35.dll", "ReadOnlyCollectionsInterfaces.dll", "GitHub.Api.dll", "GitHub.Unity.dll" };
-        private static string[] assemblies45 = { "GitHub.Api.45.dll", "GitHub.Unity.45.dll" };
+        private string[] assemblies20 = { "System.Threading.dll", "AsyncBridge.Net35.dll", "ReadOnlyCollectionsInterfaces.dll", "GitHub.Api.dll", "GitHub.Unity.dll" };
+        private string[] assemblies45 = { "GitHub.Api.45.dll", "GitHub.Unity.45.dll" };
 
         private const string GITHUB_UNITY_DISABLE = "GITHUB_UNITY_DISABLE";
-        private static bool IsDisabled { get { return Environment.GetEnvironmentVariable(GITHUB_UNITY_DISABLE) == "1"; } }
+        private bool IsDisabled { get { return Environment.GetEnvironmentVariable(GITHUB_UNITY_DISABLE) == "1"; } }
 
-        static ExtensionLoader()
+        ExtensionLoader()
         {
             if (IsDisabled)
             {
@@ -42,7 +42,7 @@ namespace GitHub.Unity
             EditorApplication.update += Initialize;
         }
 
-        private static void Initialize()
+        private void Initialize()
         {
             EditorApplication.update -= Initialize;
 
@@ -59,7 +59,7 @@ namespace GitHub.Unity
 
         }
 
-        private static void ToggleAssemblies()
+        private void ToggleAssemblies()
         {
             var path = inSourceMode ? sourceModePath : realPath;
 #if NET_4_6
@@ -71,7 +71,7 @@ namespace GitHub.Unity
 #endif
         }
 
-        private static void ToggleAssemblies(string path, string[] assemblies, bool enable)
+        private void ToggleAssemblies(string path, string[] assemblies, bool enable)
         {
             foreach (var file in assemblies)
             {

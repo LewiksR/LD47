@@ -8,7 +8,7 @@ namespace GitHub.Unity
     [InitializeOnLoad]
     public class UnityAPIWrapper : ScriptableSingleton<UnityAPIWrapper>
     {
-        static UnityAPIWrapper()
+        UnityAPIWrapper()
         {
 #if UNITY_2018_2_OR_NEWER
             Editor.finishedDefaultHeaderGUI += editor => {
